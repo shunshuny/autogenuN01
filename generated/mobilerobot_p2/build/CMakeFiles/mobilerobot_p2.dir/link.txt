@@ -1,0 +1,1 @@
+/bin/c++ -O3 -DNDEBUG -rdynamic CMakeFiles/mobilerobot_p2.dir/main.cpp.o -o mobilerobot_p2

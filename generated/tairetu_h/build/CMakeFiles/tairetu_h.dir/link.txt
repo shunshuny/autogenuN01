@@ -1,0 +1,1 @@
+/bin/c++ -O3 -DNDEBUG -rdynamic CMakeFiles/tairetu_h.dir/main.cpp.o -o tairetu_h
