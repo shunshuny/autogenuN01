@@ -249,39 +249,13 @@ class AutoGenU(object):
             for j in range(self.__ulist[i]):
                 ui[i].append(u[unumber])
                 unumber += 1
-            # for k in range(self.__nc+self.__nh):
-            #     ui[i].append(u[self.__nu+k])
         uj = [0]*self.__player
         for i in range(self.__player):
             uj[i] = tuple(ui[i])
-            """
-        hu = []
-        fb_eps = sympy.symbols('fb_eps[0:%d]' %(self.__nh))
-
-        for i in range(self.__player):
-            hu_i = symutils.diff_scalar_func(hamiltonian[i], u)  # ← 全 u に対して微分
-
-            # Fischer–Burmeister項で不等式制約の部分だけ上書き
-            for j in range(self.__nh):
-                hu_i[nuc + j] = sympy.sqrt(u[nuc + j]**2 + h[j]**2 + fb_eps[j]) - (u[nuc + j] - h[j])
-
-            # そのあと、自プレイヤーに関係ある部分（＝uj[i]）だけを抜き取る
-            indices = [sum(self.__ulist[:i]) + k for k in range(self.__ulist[i])]
-            hu_i_filtered = [hu_i[k] for k in indices]  # プレイヤーiの純粋な入力部分
-            # 制約部分（共有）も必要なら追加する
-            hu.append(hu_i_filtered + [hu_i[self.__nu + k] for k in range(self.__nc + self.__nh)])
-            """
         hu = [0]*self.__player
         fb_eps = sympy.symbols('fb_eps[0:%d]' %(self.__nh))
         for i in range(self.__player):
             hu[i] = symutils.diff_scalar_func(hamiltonian[i], uj[i])
-            # for j in range(self.__nh):
-            #     kkt = sympy.sqrt(u[nuc+j]**2 + h[j]**2 + fb_eps[j]) - (u[nuc+j] - h[j])
-            #     hu[i].append(kkt) #h[j]<0
-        # for j in range(self.__nc):
-        #     hu[-1].append(symutils.diff_scalar_func(hamiltonian[-1], u[self.__nu+j]))
-        # for j in range(self.__nh):
-        #     hu[-1].append(sympy.sqrt(u[nuc+j]**2 + h[j]**2 + fb_eps[j]) - (u[nuc+j] - h[j])) #h[j]<0
         for i in range(self.__nh):
             hu[-1].append(sympy.sqrt(u[nuc+i]**2 + h[i]**2 + fb_eps[i]) - (u[nuc+i] - h[i]))
         
